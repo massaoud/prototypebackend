@@ -1,0 +1,32 @@
+{
+  "name": "net.prototype.backend",
+  "version": "1.0.0",
+  "description": "backend app",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon  src/app.js --exec babel-node --presets env",
+    "test": "npm test",
+    "build": "babel src -d dist --source-maps",
+    "serve": "node dist/app.js"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/massaoud/prototype-backend.git"
+  },
+  "author": "Masioudi Gbadamassi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/massaoud/prototype-backend/issues"
+  },
+  "homepage": "https://github.com/massaoud/prototype-backend#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^2.0.2"
+  }
+}
