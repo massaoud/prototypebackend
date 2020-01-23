@@ -2,4 +2,5 @@
 
 set up env by creating .env with 
 
-PORT = ?
+PORT = ? 
+DATABASE = ?
