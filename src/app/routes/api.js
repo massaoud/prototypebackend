@@ -1,15 +1,13 @@
 import express from 'express';
-import task1Controller from '../controllers/task1';
-
-
 const router = express.Router();
-const {sayHi} = task1Controller
+import task4Controller from '../controllers/task4Controller';
 
-router.get("/", (req, res) => {
-  res.send('HELLO FROM NODE ');
-}); 
 
-router.get("/", sayHi );
+
+const {task4} = task4Controller;
+
+
+router.get("/task4s", task4 );
 
 
 module.exports  = router;
