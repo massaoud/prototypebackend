@@ -40,14 +40,27 @@ const peopleSchema = new mongoose.Schema(
       type: String
     }
   },
-  { toObject: { virtuals: true } });
+  { toJSON: { virtuals: true } });
 
 peopleSchema.virtual('films_characters', {
   ref: 'Films',
   localField: 'id',
   foreignField: 'characters',
-  options: { sort: { number: 1 } }
+});
+
+peopleSchema.virtual('people_species', {
+  ref: 'Species',
+  localField: 'id',
+  foreignField: 'people',
+});
+
+peopleSchema.virtual('people_vehicles', {
+  ref: 'Vehicles',
+  localField: 'id',
+  foreignField: 'pilots',
 });
 
 
-module.exports = mongoose.model('people', peopleSchema, 'people');
+
+
+module.exports = mongoose.model('People', peopleSchema, 'people');

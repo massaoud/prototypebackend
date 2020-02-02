@@ -1,34 +1,64 @@
 import Films from '../models/films';
 import Species from '../models/species';
-
+import People from '../models/people';
 exports.task3s = (req, res) => {
-  Species.aggregate(
+  Films.aggregate(
     [
       {
         $lookup: {
-          from: Films.collection.name,
-          localField: 'id',
-          foreignField: 'species',
-          as: 'species_films'
+          from: Species.collection.name,
+          localField: 'people',
+          foreignField: 'characters',
+          as: 'people_species'
         }
       },
+
+      { $unwind: '$people_species' },
 
       {
         $project: {
           _id: 1,
           id: 1,
           name: 1,
-          totalFilms: { $size: '$species_films' }
+          title: 1,
+          nbr: { $size: '$characters' },
+          //people_species: 1,
+          people_species: {
+            _id: 1,
+            id: 1,
+            title: 1,
+            name: 1,
+            nbrPeople: { $size: '$people_species.people' }
+          }
         }
       },
 
-      { $sort: { totalFilms: -1 } }
+      {
+        $group: {
+          _id: { id: '$id', nbr: '$people_species.nbrPeople' },
+          response: {
+            $push: {
+              id: '$id',
+              //title: '$title',
+              people_species: {
+                id: '$people_species.id',
+                title: '$people_species.name',
+                nbrPeople: '$people_species.nbrPeople' //'$people_species.nbrPeople'
+              }
+            }
+          }
+        }
+      },
+
+      { $sort: { _id: -1 } },
+      { $limit: 1 }
     ],
+
     function(err, result) {
       if (err) {
         next(err);
       } else {
-        res.json(result);
+        res.json(result[0].response);
       }
     }
   );

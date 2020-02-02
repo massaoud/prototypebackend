@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import peopleSchema from './people';
 
-//const {ObjectId} = mongoose.Schema
+
 
 const filmsSchema = new mongoose.Schema({
   id: {
@@ -40,5 +39,3 @@ const filmsSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Films', filmsSchema);
-
-//{ type: ObjectId, ref: 'People' }

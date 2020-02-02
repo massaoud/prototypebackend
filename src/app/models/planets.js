@@ -38,15 +38,19 @@ const planetsSchema = new mongoose.Schema({
   terrain: {
     type: String
   } 
- }) ;
- //,{ toObject: { virtuals: true } }
-// ,{ toJSON: { virtuals: true } })
+ },
+ { toJSON: { virtuals: true } })
 
-/* planetsSchema.virtual('films_planets', {
+ planetsSchema.virtual('films_planets', {
   ref: 'Films',
   localField: 'id',
-  foreignField: 'planets', 
-  options: { sort: { number: 1 } }
+  foreignField: 'planets'
 });
- */
+
+planetsSchema.virtual('pilots', {
+  ref: 'People',
+  localField: 'id',
+  foreignField: 'homeworld'
+});
+ 
 module.exports = mongoose.model('Planets', planetsSchema);

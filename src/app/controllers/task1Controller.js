@@ -1,5 +1,4 @@
 import Films from '../models/films';
-import ErrorHandler from '../helpers/dbErrorHandler';
 
 exports.all = (req, res) => {
   Films.find()
@@ -30,18 +29,29 @@ exports.task1 = (req, res) => {
           producer: 1,
           release_date: 1,
           // people: '$characters',
-          count: { $size: '$characters' }
+          nbr: { $size: '$characters' }
         }
       },
-      
-      { $sort: { count: -1 } },
-      { $limit: 1 }
+      {
+        $group: {
+          _id: '$nbr',
+          response: {
+            $push: {
+              id: '$id',
+              title: '$title',
+              numberOfCharacter: { $max: '$nbr' }
+            }
+          }
+        }
+      },
+     { $sort: { numberOfCharacter: -1 } },
+     { $limit: 1 }
     ],
     function(err, result) {
       if (err) {
         next(err);
       } else {
-        res.json(result[0]);
+        res.json(result[0].response);
       }
     }
   );
