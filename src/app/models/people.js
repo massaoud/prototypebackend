@@ -40,27 +40,29 @@ const peopleSchema = new mongoose.Schema(
       type: String
     }
   },
-  { toJSON: { virtuals: true } });
+  { toJSON: { virtuals: true } }
+);
 
+/********************** VIRTUAL JOIN BETWEEN FILMS PEOPLES   ************************/
 peopleSchema.virtual('films_characters', {
   ref: 'Films',
   localField: 'id',
-  foreignField: 'characters',
+  foreignField: 'characters'
 });
+
+/********************** VIRTUAL JOIN BETWEEN SPECIES PEOPLES   ************************/
 
 peopleSchema.virtual('people_species', {
   ref: 'Species',
   localField: 'id',
-  foreignField: 'people',
+  foreignField: 'people'
 });
 
+/********************** VIRTUAL JOIN BETWEEN VEHICLES PEOPLES   ************************/
 peopleSchema.virtual('people_vehicles', {
   ref: 'Vehicles',
   localField: 'id',
-  foreignField: 'pilots',
+  foreignField: 'pilots'
 });
-
-
-
 
 module.exports = mongoose.model('People', peopleSchema, 'people');

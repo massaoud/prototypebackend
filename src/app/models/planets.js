@@ -41,12 +41,14 @@ const planetsSchema = new mongoose.Schema({
  },
  { toJSON: { virtuals: true } })
 
+ /********************** VIRTUAL JOIN BETWEEN FILMS PLANETS  ************************/
  planetsSchema.virtual('films_planets', {
   ref: 'Films',
   localField: 'id',
   foreignField: 'planets'
 });
 
+/********************** VIRTUAL JOIN BETWEEN PEOPLES PLANETS  ************************/
 planetsSchema.virtual('pilots', {
   ref: 'People',
   localField: 'id',

@@ -12,6 +12,8 @@ const vehicleSchema = new mongoose.Schema(
   },
   //{ toObject: { virtuals: true } },
 );
+
+/********************** VIRTUAL JOIN BETWEEN FILMS VEHICLES   ************************/
 vehicleSchema.virtual('films_vehicles', {
   ref: 'Films',
   localField: 'id',
